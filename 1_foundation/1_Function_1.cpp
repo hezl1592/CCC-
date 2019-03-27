@@ -1,4 +1,4 @@
-#include<iostream>     //标准输入、输出的标准库头文件
+#include <iostream>     //标准输入、输出的标准库头文件
 
 using namespace std;    //命名空间，std::
 
