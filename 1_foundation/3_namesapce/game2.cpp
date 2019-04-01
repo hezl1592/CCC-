@@ -1,3 +1,4 @@
+#include <iostream>
 #include "game2.h"
 
 void DOTA::goAtk()
