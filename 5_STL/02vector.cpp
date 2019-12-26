@@ -27,7 +27,7 @@ void printVector(vector<T> &v)
 //     cout << endl;
 // }
 
-void testcreat()
+void testcreate()
 {
     cout << "1:构造" << endl;
     vector<int> v;  //构造无参数vector
@@ -245,7 +245,7 @@ void testreserve()
 
 int main()
 {
-    testcreat();
+    testcreate();
     testassign();
     testsize();
     testinsertanddelete();

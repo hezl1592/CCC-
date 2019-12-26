@@ -15,7 +15,7 @@ void printDeque(const deque<T> &d)
     cout << endl;
 }
 
-void testcreat()
+void testcreate()
 {
     cout << "1:构造" << endl;
     deque<int> d1;
@@ -153,7 +153,7 @@ void test_sort()
 
 int main()
 {
-    testcreat();
+    testcreate();
     testsize();
     test_insert_delete();
     test_index();
