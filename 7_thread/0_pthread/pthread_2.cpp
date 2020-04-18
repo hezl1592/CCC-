@@ -1,6 +1,7 @@
-//
-// Created by Zilch on 2020/4/18.
-//
+/*
+Filename: 1.cpp
+Created by Zilch on 2020/4/18.
+*/
 #include "pthread.h"
 #include <unistd.h>
 #include <cstdio>
@@ -13,7 +14,6 @@ void *thr_fn1(void *arg) {
 void *thr_fn2(void *arg) {
     printf("thread 2 exiting\n");
     pthread_exit((void *) 2);
-    return nullptr;
 }
 
 void *thr_fn3(void *arg) {
@@ -37,13 +37,10 @@ int main() {
     printf("thread 2 exit code %d\n", (int *) tret);
 
 //    3
-    pthread_t tid1;
-    pthread_create(&tid1, NULL, thr_fn3, NULL);
+    pthread_create(&tid, NULL, thr_fn3, NULL);
     sleep(3);
-    printf("%s", "sdsd");
-    int a = pthread_cancel(tid1);
-    printf("%d, %s", a, "sdsd111");
-    pthread_join(tid1, &tret);
+    pthread_cancel(tid);
+    pthread_join(tid, &tret);
     printf("thread 3 exit code %d\n", (int *) tret);
 
     return 0;
