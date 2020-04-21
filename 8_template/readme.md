@@ -29,7 +29,8 @@ void Swap(T &a, T &b) {
 
   ```c++
   //实例化出int，Swap(int &a, int &b)
-  Swap(1,0);		//T为int
+  Swap(1,0);		//自动推导T为int
+  Swap<float>(0,1);	//指定
   ```
 
   调用函数模板的时候，编译器会用函数实参来推断模板实参，编译器用推断出的模板参数来为我们**实例化**一个特定版本的函数。这些编译器生成的版本通常被称为模板的**实例（instantiation）**。
@@ -55,7 +56,27 @@ void Swap(T &a, T &b) {
     ---
 
     **注意**：`在同一个文件（或转换单元）中使用同一种类型的显式实例和显式具体化会出错！！`
+  
+- 总结
+  
+    **隐式实例化**指的是：在使用模板之前，编译器不生成模板的声明和定义实例。只有当使用模板时，编译器才根据模板定义生成相应类型的实例。如：int i=0, j=1;swap(i, j);  //编译器根据参数i，j的类型隐式地生成swap<int>(int &a, int &b)的函数定义。Array<int> arVal;//编译器根据类型参数隐式地生成Array<int>类声明和类函数定义。
+  
+    **显式实例化**：当显式实例化模板时，在使用模板之前，编译器根据显式实例化指定的类型生成模板实例。如前面显示实例化（explicit instantiation）模板函数和模板类。其格式为：
+  
+    ```c++
+      template typename function<typename>(argulist);
+      template class classname<typename>;
+    ```
+  
+  **显式实例化只需声明**，不需要重新定义。编译器根据模板实现实例声明和实例定义。
+  
+  **显示具体化**：*对于某些特殊类型，可能不适合模板实现，需要重新定义实现*，此时可以使用显示具体化（explicite specialization）。显示实例化需重新定义。格式为：
 
+  ```c++
+  template<> typename function<typename>(argu_list){...};
+  template<> class classname<typename>{...};
+  ```
+  
 - **模板类型参数**
 
   一般来说，我们可以将类型参数看做**类型说明符**，也可以用来指定返回类型或函数的参数类型，以及函数体内部用于变量声明或类型转换。
@@ -86,6 +107,52 @@ void Swap(T &a, T &b) {
 
   非类型参数可以是一个整型、或者是一个指向对象或函数原型的指针或引用。
 
-  在模板定义内，非类型参数是一个常量值。在需要常量表达式的地方，可以使用非类型参数，比如指定数组大小
+  在模板定义内，非类型参数是一个常量值。在需要常量表达式的地方，可以使用非类型参数，比如指定数组大小。
 
-- 
+  - 非类型模板参数的模板实参必须是常量表达式`const`
+
+
+#### 2.类模板
+
+**类模板**（class template）是用来生成类的蓝图的。与函数模板的不同之处在于，编译器不能为类模板推断模板参数类型，必须制定类型。
+
+```c++
+vector<int> ob_name;
+```
+
+- 定义类模板
+
+```c++
+template<typename Type>
+class Blob {
+public:
+    Blob();
+    ~Blob();
+    
+    void show(const Blob &);
+}
+
+template<typename Type>
+void Blob<Type>::show(const Blob &bl);
+```
+
+- 实例化类模板
+
+  当使用类模板时，必须提供额外信息，**显式模板实参**！
+
+- 类模板与友元
+
+  ```c++
+  template<typename Type>
+  class Blob {
+  public:
+      Blob();
+      ~Blob();
+      
+      void show(const Blob &);
+      friend class Blobptr<Type>;
+      friend bool operator==<Type>(const Blob<Type>&, const Blob<T> &);
+  }
+  ```
+
+  
