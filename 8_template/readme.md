@@ -155,4 +155,4 @@ void Blob<Type>::show(const Blob &bl);
   }
   ```
 
-  
+- 
